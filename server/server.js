@@ -15,26 +15,11 @@ const trans = [
         type: "sub",
         amount: 14.05,
         name: "Gas"
-    }, {
-        id: 2,
-        type: "sub",
-        amount: 14.05,
-        name: "Gas"
-    }, {
-        id: 3,
-        type: "sub",
-        amount: 14.05,
-        name: "Gas"
-    }, {
-        id: 4,
-        type: "sub",
-        amount: 14.05,
-        name: "Gas"
     },
 
 
 ]
-let id = 4;
+let id = 2;
 app.get('/api/transactions/', (req, res) => { res.status(200).send(trans) })
 
 
@@ -43,22 +28,19 @@ app.put('/api/transactions/:idToChange', (req, res) => {
     const { amount, name } = req.body;
     for (let i = 0; i < trans.length; i++) {
         console.log('looking for a match')
-        
-            if (trans[i].id === +idToChange) {
-                console.log('found a match')
-                if(req.body.amount){
-                    trans[i].amount = amount}else if (req.body.name){trans[i].name = name; }
-                
-                
+
+        if (trans[i].id === +idToChange) {
+            console.log('found a match')
+            if (req.body.amount) {
+                trans[i].amount = amount
+            } else if (req.body.name) { trans[i].name = name; }
+
+
         }
     }
 
     return res.status(200).send(trans);
 })
-
-
-
-
 
 app.post('/api/transactions/', (req, res) => {
     const { type, amount, name } = req.body
@@ -72,20 +54,17 @@ app.post('/api/transactions/', (req, res) => {
     res.status(200).send(trans)
 })
 
-
-
 app.delete('/api/transactions/:idToDelete', (req, res) => {
     const { idToDelete } = req.params;
     for (let i = 0; i < trans.length; i++) {
-        for (id in trans[i]) {
-            if (trans[i][id] === +idToDelete) {
-                trans.splice(i, 1)
-            }
+
+        if (trans[i].id === +idToDelete) {
+            trans.splice(i, 1)
+
         }
     }
     res.status(200).send(trans)
 })
-
 
 app.listen(port, () => { console.log(`Releasing ${port} Dragons`) })
 
