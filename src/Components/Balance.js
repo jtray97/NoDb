@@ -5,20 +5,20 @@ export default class Balance extends Component{
         super()
         this.state={
             balance:500,
-            // array:this.props.array
+            array:'',
         }
     }
-   
+   componentDidMount(){
+    // console.log(this.props.myVariable)
+   }
   
 
     render(){
-        
-        
-        // this.state.array.filter((el)=>{return el.type==="add"})
         return(
             <div className="balanceDiv">
             <h1>Your Balance is:{this.state.balance}</h1>
             {this.handleBalance}
+            
             </div>
         )
     }

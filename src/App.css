@@ -7,3 +7,16 @@
 .sub{
   color:red;
 }
+.joke{
+  
+  height:5vh;
+  top:0;
+}
+#jokeDiv{
+  border-bottom: 2px dotted blue;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  padding:5vh;
+}
+
