@@ -16,10 +16,11 @@ class App extends Component {
       newName: 'null',
       newCost: 0,
       currentJoke: '',
-      balance:500
+      balance: 500
     }
 
   }
+
   componentDidMount() {
     axios.get(baseURL).then(response => {
       this.setState({
@@ -27,35 +28,40 @@ class App extends Component {
         formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> })
       });
     })
-this.workingBalance() // is run once, when the component mounts, and once per button click.
-  }
-  workingBalance =() =>{ // this array takes the array from the server and converts it into numbers to add and subtract. and adds or subtracts to State.
-    axios.get(baseURL).then(response => {
-        this.setState({ array: response.data })
-        console.log('full Data=',response.data)
-        var add = this.state.array.filter((obj) => { return obj.type === "add" })
-        console.log('filtered data=',add)
-        var addition = []
-        add.forEach(element => {
-            return addition.push(+element.amount)
-        })
-        console.log('just numbers=',addition)
-        // addReduced = addition.reduce((sum, num) => { return sum + num }, 0)
-        // console.log('number to add=',addReduced)
+    this.workingBalance() // is run once, when the component mounts, and once per button click.
 
-       var sub = this.state.array.filter((obj)=>{return obj.type === 'sub'})
-       console.log('filtered data =',sub)
-       var subtraction =[]
-       sub.forEach((element)=>{return subtraction.push(+element.amount)})
-       console.log( 'subtraction=',subtraction)
+    axios.get('https://api.chucknorris.io/jokes/random').then((response) => {console.log(response.data.value)
+    this.setState({ currentJoke: response.data.value })})
+
+  }
+  workingBalance = () => { // this array takes the array from the server and converts it into numbers to add and subtract. and adds or subtracts to State.
+    axios.get(baseURL).then(response => {
+      this.setState({ array: response.data })
+      console.log('full Data=', response.data)
+      var add = this.state.array.filter((obj) => { return obj.type === "add" })
+      console.log('filtered data=', add)
+      var addition = []
+      add.forEach(element => {
+        return addition.push(+element.amount)
+      })
+      console.log('just numbers=', addition)
+      // addReduced = addition.reduce((sum, num) => { return sum + num }, 0)
+      // console.log('number to add=',addReduced)
+
+      var sub = this.state.array.filter((obj) => { return obj.type === 'sub' })
+      console.log('filtered data =', sub)
+      var subtraction = []
+      sub.forEach((element) => { return subtraction.push(+element.amount) })
+      console.log('subtraction=', subtraction)
       //  subReduced = subtraction.reduce((sum, num) => { return sum+num}, 0)
       //  console.log (subReduced)
-console.log(this.state.balance + addition[addition.length-1]- subtraction[subtraction.length-1])
-       this.setState({
-         balance : this.state.balance + addition[addition.length-1]- subtraction[subtraction.length-1]
-        })
+      console.log(this.state.balance + addition[addition.length - 1] - subtraction[subtraction.length - 1])
+      this.setState({
+        balance: this.state.balance + addition[addition.length - 1] - subtraction[subtraction.length - 1]
+      })
     }
-    )}
+    )
+  }
 
   handleChangeName = (val) => { this.setState({ newName: val }) }
   handleChangeCost = (val) => { this.setState({ newCost: val }) }
@@ -68,13 +74,11 @@ console.log(this.state.balance + addition[addition.length-1]- subtraction[subtra
       this.setState({
         original: response.data,
         formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> }),
-        balance:this.state.balance+ Number(this.state.newCost)
+        balance: this.state.balance + Number(this.state.newCost)
 
       })
-      // console.log(this.state.formatted)
-     
-    })  
-  // this.workingBalance()
+
+    })
   }
   handleExpend = () => {
     console.log('expend')
@@ -84,24 +88,23 @@ console.log(this.state.balance + addition[addition.length-1]- subtraction[subtra
       this.setState({
         original: response.data,
         formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> }),
-        balance:this.state.balance- Number(this.state.newCost)
+        balance: this.state.balance - Number(this.state.newCost)
 
       })
-  
+
     })
-    // this.workingBalance()
   }
 
 
 
   render() {
-   
+
 
     return (
       <div className="App">
-      <div id ="jokeDiv">
-        <h1 className="joke">{this.state.currentJoke}</h1>
-      </div>
+        <div id="jokeDiv">
+          <h1 className="joke">{this.state.currentJoke}</h1>
+        </div>
         <div>
           <h1>your balance is: ${this.state.balance}</h1>
         </div>
