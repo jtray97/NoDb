@@ -20,8 +20,6 @@ class App extends Component {
   }
   componentDidMount() {
     axios.get(baseURL).then(response => {
-      // this.updateBalance()
-      // console.log(response.data)
       this.setState({
         original: response.data,
         formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> })
@@ -46,22 +44,20 @@ class App extends Component {
     console.log('income')
     axios.post(baseURL, { type: "add", amount: this.state.newCost, name: this.state.newName })
     axios.get(baseURL).then(response => {
-      // console.log(response.data)
       this.setState({
         original: response.data,
         formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> })
 
 
       })
-      console.log(this.state.formatted)
+      // console.log(this.state.formatted)
     })
-    // this.updateBalance()
   }
   handleExpend = () => {
     console.log('expend')
     axios.post(baseURL, { type: "sub", amount: this.state.newCost, name: this.state.newName })
     axios.get(baseURL).then(response => {
-      // console.log(response.data)
+      
       this.setState({
         original: response.data,
         formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> })
@@ -69,32 +65,19 @@ class App extends Component {
 
       })
     })
-    // this.updateBalance()
   }
 
 
-//   updateBalance=()=>{
-//   var add = this.state.original.filter((e)=>{return e.type==="add"})
-//   console.log(add);
-  
-
-  
-//   var sub;
-//     // var sub = this.state.original.filter((e)=>{return e.type ==="sub"})
-// var math = add+sub
-
-  // }
 
   render() {
    
     
-  // get balance working. 
     return (
       <div className="App">
       <div id ="jokeDiv">
         <h1 className="joke">{this.state.currentJoke}</h1>
       </div>
-        <Balance math={this.math}/>
+        <Balance />
         <div>
           <input onChange={(e) => { this.handleChangeName(e.target.value) }} /><input onChange={(e) => { this.handleChangeCost(e.target.value) }} />
         </div>
