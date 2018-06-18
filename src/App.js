@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 // import Balance from './Components/Balance'
-var addReduced;
-var subReduced;
+// var addReduced;
+// var subReduced;
 
 
 var baseURL = '/api/transactions'
@@ -40,18 +40,20 @@ this.workingBalance() // is run once, when the component mounts, and once per bu
             return addition.push(+element.amount)
         })
         console.log('just numbers=',addition)
-        addReduced = addition.reduce((sum, num) => { return sum + num }, 0)
-        console.log('number to add=',addReduced)
+        // addReduced = addition.reduce((sum, num) => { return sum + num }, 0)
+        // console.log('number to add=',addReduced)
 
        var sub = this.state.array.filter((obj)=>{return obj.type === 'sub'})
-    //    console.log(sub)
+       console.log('filtered data =',sub)
        var subtraction =[]
        sub.forEach((element)=>{return subtraction.push(+element.amount)})
-    //    console.log(subtraction)
-       subReduced = subtraction.reduce((sum, num) => { return sum+num}, 0)
-       console.log (subReduced)
-       
-       this.setState({balance :this.state.balance + (addReduced - subReduced)})
+       console.log( 'subtraction=',subtraction)
+      //  subReduced = subtraction.reduce((sum, num) => { return sum+num}, 0)
+      //  console.log (subReduced)
+console.log(this.state.balance + addition[addition.length-1]- subtraction[subtraction.length-1])
+       this.setState({
+         balance : this.state.balance + addition[addition.length-1]- subtraction[subtraction.length-1]
+        })
     }
     )}
 
@@ -65,14 +67,14 @@ this.workingBalance() // is run once, when the component mounts, and once per bu
     axios.get(baseURL).then(response => {
       this.setState({
         original: response.data,
-        formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> })
-      
+        formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> }),
+        balance:this.state.balance+ Number(this.state.newCost)
 
       })
       // console.log(this.state.formatted)
      
     })  
-  this.workingBalance()
+  // this.workingBalance()
   }
   handleExpend = () => {
     console.log('expend')
@@ -81,13 +83,13 @@ this.workingBalance() // is run once, when the component mounts, and once per bu
       console.log(response.data)
       this.setState({
         original: response.data,
-        formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> })
-        
+        formatted: response.data.map((obj, ind) => { return <div key={obj.id + ind}><h3 className={obj.type}>{obj.name}: ${obj.amount}</h3></div> }),
+        balance:this.state.balance- Number(this.state.newCost)
 
       })
   
     })
-    this.workingBalance()
+    // this.workingBalance()
   }
 
 
@@ -101,7 +103,7 @@ this.workingBalance() // is run once, when the component mounts, and once per bu
         <h1 className="joke">{this.state.currentJoke}</h1>
       </div>
         <div>
-          <h1>your balance is:{this.state.balance}</h1>
+          <h1>your balance is: ${this.state.balance}</h1>
         </div>
         <div>
           <input onChange={(e) => { this.handleChangeName(e.target.value) }} /><input onChange={(e) => { this.handleChangeCost(e.target.value) }} />
