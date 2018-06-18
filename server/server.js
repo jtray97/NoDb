@@ -13,13 +13,13 @@ const trans = [
     }, {
         id: 1,
         type: "sub",
-        amount: 14.05,
+        amount: 15,
         name: "Gas"
     },
 
 
 ]
-let id = 0;
+let id = 2;
 app.get('/api/transactions/', (req, res) => { res.status(200).send(trans) })
 
 
