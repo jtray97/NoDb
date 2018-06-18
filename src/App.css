@@ -6,7 +6,7 @@
   background-color: #90f668
 }
 .add{
-  color:rgb(25, 226, 25);
+  color:rgb(23, 104, 3);
 }
 .sub{
   color:red;
@@ -15,8 +15,9 @@
 #jokeDiv{
   border-bottom: 1px solid black;
   display:flex;
+  flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   padding:2vh;
   background-color: #3ef40f;}
 
@@ -26,9 +27,11 @@
 
   input{
   margin:5px;
+  border: none;
   background-color: #8dc362;
   border-bottom: 1px solid black;
   height:30px;
+  border-radius: 5px
 }
 .name{
   width:250px;
@@ -39,7 +42,9 @@
 button{
   margin:5px;
   background-color: #35adce;
-  border: 2px solid #35adce
+  border: 2px solid #35adce;
+  height:30px;
+  width:100px;
 }
 
 h3{
@@ -49,12 +54,22 @@ h3{
 	justify-content: flex-start;
 	align-items: stretch;
   align-content: center;
-  background-color: #44fe7a;
+  /* background-color: #44fe7a; */
   width:auto;
   -webkit-text-stroke-color: black;
   /* -webkit-text-stroke-width: 1px; */
 }
 
-placeholder{
-  text-align: center;
+.broke{
+  color: red;
+}
+img{
+  align-items: center;
+  height:100%;
+  width: auto;
+}
+.imgDiv{
+  display: flex;
+  justify-content: center;
+  background-color: #3ef40f ;
 }
