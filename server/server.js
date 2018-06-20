@@ -19,7 +19,7 @@ const trans = [
 
 
 ]
-let id = 2;
+let id = 1;
 app.get('/api/transactions/', (req, res) => { res.status(200).send(trans) })
 
 

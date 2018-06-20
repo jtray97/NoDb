@@ -11,7 +11,9 @@
 .sub{
   color:red;
 }
-
+.delete{
+  text-align: center;
+}
 #jokeDiv{
   border-bottom: 1px solid black;
   display:flex;
@@ -32,6 +34,7 @@
   border-bottom: 1px solid black;
   height:30px;
   border-radius: 5px
+
 }
 .name{
   width:250px;
@@ -45,6 +48,7 @@ button{
   border: 2px solid #35adce;
   height:30px;
   width:100px;
+  border-radius: 5px;
 }
 
 h3{
@@ -67,6 +71,7 @@ img{
   align-items: center;
   height:100%;
   width: auto;
+  border-radius: 5px;
 }
 .imgDiv{
   display: flex;
